@@ -12,7 +12,7 @@ class Splitter:
     def __init__(self, file_p: Path, p_man: PathManager, config: dict, cmd: str):
         self.out_p_man: PathManager = p_man
         self.file_p = file_p
-        self.cmd: str = cmd.format(file_p=self.file_p)
+        self.cmd: str | None = cmd.format(file_p=self.file_p) if cmd else None
         self.is_del_single_track: bool = config["transcode"]['is_del_single_trk']
         self.is_del_cue: bool = config["transcode"]['is_del_cue']
 
