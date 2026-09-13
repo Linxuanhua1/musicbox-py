@@ -109,11 +109,14 @@ class MP4Reader(MetaReader):
 
         std_tags: InternalTags = {}
         for field, tag in tags.items():
-            if field == "©too":
+            # TODO: 这里拦截的变量应该移动到常量，这里的Encoding Params暂时不支持映射到标准化标签，先跳过
+            if field == "©too" or field == "----:com.apple.iTunes:Encoding Params":
                 continue
 
+            # 拦截字段xid，因为xid需要切分
             handler = self._FIELD_HANDLERS.get(field)
 
+            # 拦截MP4本身的几种元数据类型
             if handler is None:
                 first = tag[0] if isinstance(tag, list) and tag else tag
                 for val_type, type_handler in self._TYPE_HANDLERS:
@@ -121,6 +124,7 @@ class MP4Reader(MetaReader):
                         handler = type_handler
                         break
 
+            # 上述没有一个支持的情况下，回退到默认策略报错
             if handler is None:
                 logger.error(f"{self.file_p}有不支持的MP4 tag，字段名为{field}，内容为{tag}")
                 continue
