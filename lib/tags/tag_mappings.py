@@ -307,6 +307,7 @@ IMAGE_TYPE_TO_APE: dict[ImageType, str] = {
 MP4_TO_STANDARD = {
     '©alb': 'ALBUM',
     'isrc': "ISRC",
+    "©url": "URL",
     'aART': 'ALBUMARTIST',
     'soaa': 'ALBUMARTISTSORT',
     'soal': 'ALBUMSORT',
@@ -386,6 +387,7 @@ MP4_TO_STANDARD = {
 
 STANDARD_TO_MP4: dict[str, str] = {
     'ISRC': "isrc",
+    "URL": "©url",
     'ALBUM': '©alb',
     'ALBUMARTIST': 'aART',
     'ALBUMARTISTSORT': 'soaa',
